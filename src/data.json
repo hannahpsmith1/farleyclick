@@ -1,0 +1,63 @@
+[
+    {
+      "id": 1,
+      "image": "/assets/images/bellatrix.jpeg",
+      "clicked": false
+    },
+    {
+      "id": 2,
+      "image": "/assets/images/fred.jpeg",
+      "clicked": false
+    },
+    {
+      "id": 3,
+      "image": "/assets/images/george.jpeg",
+      "clicked": false
+    },
+    {
+      "id": 4,
+      "image": "/assets/images/ginny.jpeg",
+      "clicked": false
+    },
+    {
+      "id": 5,
+      "image": "/assets/images/hagrid.jpeg",
+      "clicked": false
+    },
+    {
+      "id": 6,
+      "image": "/assets/images/harrypotter.jpeg",
+      "clicked": false
+    },
+    {
+      "id": 7,
+      "image": "/assets/images/hermione.jpeg",
+      "clicked": false
+    },
+    {
+      "id": 8,
+      "image": "/assets/images/malfoy.jpeg",
+      "clicked": false
+    },
+    {
+      "id": 9,
+      "image": "/assets/images/snape.jpeg",
+      "clicked": false
+    },
+    {
+      "id": 10,
+      "image": "/assets/images/tonks.jpeg",
+      "clicked": false
+    },
+    {
+      "id": 11,
+      "image": "/assets/images/ronweasley.jpeg",
+      "clicked": false
+    },
+    {
+      "id": 12,
+      "image": "/assets/images/voldemort.jpeg",
+      "clicked": false
+    }
+  ]
+  

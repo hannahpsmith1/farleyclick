@@ -1,69 +1,99 @@
-import React, { Component } from 'react';
-import characters from "../../characters.json";
-
-const shuffledArr = []
+import React, { Component } from "react";
+import Container from "../Container";
+import Clicked from "../Clicked";
+import Navbar from "../Navbar";
+import data from "../../data.json";
 
 class Game extends Component {
-    state = {
-        characters: characters,
-        score: 0,
-        highScore: 0
+  state = {
+    data,
+    score: 0,
+    topScore: 0
+  };
+
+  componentDidMount() {
+    this.setState({ data: this.shuffle(this.state.data) });
+  }
+//[{id: 1, name: "Farley" , image" "/img/meow.jpg, clicked: false"}]
+  shuffle = data => {
+    let i = data.length - 1;
+    while (i > 0) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = data[i];
+      data[i] = data[j];
+      data[j] = temp;
+      i--;
     }
-    //[{id: 1, name: "Farley" , image" "/img/meow.jpg, clicked: false"}]
-    shuffleData = data => {
-        let i = data.length - 1;
-        while (i > 0) {
-          const j = Math.floor(Math.random() * (i + 1));
-          const temp = data[i];
-          data[i] = data[j];
-          data[j] = temp;
-          i--;
+    return data;
+  };
+
+  ItemClicked = id => {
+        //     console.log("itemClicked")
+    let guessedCorrectly = false;
+    const newData = this.state.data.map(item => {
+      const newItem = { ...item };
+      if (newItem.id === id) {
+        if (!newItem.clicked) {
+          newItem.clicked = true;
+          guessedCorrectly = true;
         }
-        return data;
-      };
-
-    itemClicked = (id) => {
-        console.log("itemClicked")
-        // this.shuffle();
-        //  1. iterates through the characters array and check to see that it exist
-        // 2. check to see if it has been clicked
-        //3. if it has been clicked then we compare current score against high score and if current score is higher then high score then set \high score to be curret score and tehn set current score to 0
-        //4. if it has not been clicked 
-        //- score increments
-        //- and we set clicked to true
-        //5. call on shuffle
-
-            if (shuffledArr.includes(id)) {
-            //   setMessage('Hello');
-            //   state.score(0);
-              shuffledArr = [];
-              return;
-            }
+      }
+      return newItem;
+    });
+    guessedCorrectly
+      ? this.handleCorrectClick(newData)
+      : this.handleIncorrectClick(newData);
+  };
 
 
-    }
-    handleCorrectClick = () => {
         // update state
         //on that obj you will need to toggle clicked to true
         // compare current score to high score
         // call shuffle
-    }
+  handleCorrectClick = newData => {
+    const { topScore, score } = this.state;
+    const newScore = score + 1;
+    const newTopScore = Math.max(newScore, topScore);
 
-    handleIncorrectClick = () => {
-        //  reset state to original values
+    this.setState({
+      data: this.shuffle(newData),
+      score: newScore,
+      topScore: newTopScore
+    });
+  };
+
+          //  reset state to original values
         // call shuffle
-    }
-    render() {
-        return(
-        <div>
-            <h1>Ta-Da</h1>
-            <h1>Score:{this.state.score}</h1>
-            <h1>High Score:{this.state.highScore}</h1>
-            {this.state.characters.map(character => (
-                <img src={character.image} onClick={()=>this.itemClicked(character.id)} />
-                ))}
-            </div>
-    )}
-};
+  handleIncorrectClick = data => {
+    this.setState({
+      data: this.resetScore(data),
+      score: 0
+    });
+  };
+
+  resetScore = data => {
+    const resetData = data.map(item => ({ ...item, clicked: false }));
+    return this.shuffle(resetData);
+  };
+
+
+  render() {
+    return (
+      <div>
+        <Navbar score={this.state.score} topScore={this.state.topScore} />
+        <Container>
+          {this.state.data.map(item => (
+            <Clicked
+              key={item.id}
+              id={item.id}
+              handleClick={this.ItemClicked}
+              image={item.image}
+            />
+          ))}
+        </Container>
+      </div>
+    );
+  }
+}
 
 export default Game;

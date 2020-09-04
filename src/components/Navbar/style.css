@@ -1,0 +1,25 @@
+.navbar {
+    background: black;
+    position: fixed;
+    width: 100%;
+    color: white;
+  }
+  
+  .navbar ul {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar li {
+    display: inline-block;
+    padding: 30px 0px;
+    width: 40%;
+    text-align: center;
+  }
+  
+  .navbar a {
+    color: white;
+    font-weight: 900;
+  }
+  
+  
